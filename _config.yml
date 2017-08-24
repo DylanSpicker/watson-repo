@@ -1,0 +1,20 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely need to edit after that.
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'jekyll serve'. If you change this file, please restart the server process.
+
+# Site settings
+title: Watson Repository
+email: dylan.spicker@queensu.ca
+description: > # this means to ignore newlines until "baseurl:"
+  A repository of project examples, code templates, and useful utilities
+  for working with IBM Watson on Bluemix. Designed specifically for use at
+  the Smith School of Business.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "http://dylanspicker.github.io/watson-repo" # the base hostname & protocol for your site
+github_username:  DylanSpicker
+
+# Build settings
+markdown: Redcarpet
