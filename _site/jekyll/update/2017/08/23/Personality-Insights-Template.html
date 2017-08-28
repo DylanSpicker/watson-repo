@@ -59,31 +59,31 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <h1>Natural Language Classifier</h1>
-
+    <h1 id="natural-language-classifier">Natural Language Classifier</h1>
 <p>The <a href="https://console.bluemix.net/docs/services/personality-insights/getting-started.html">Personality Insights</a> is a Watson Service that is used to generate a personality profile, including the Big 5 description, needs, values, and consumer preferences. In order to use the classifier you must:</p>
 
 <ol>
-<li>Generate Credentials on Bluemix for Persoanlity Insights</li>
+  <li>Generate Credentials on Bluemix for Persoanlity Insights</li>
 </ol>
 
-<h2>The Template</h2>
-
+<h2 id="the-template">The Template</h2>
 <p>This template will allow you to provide an input field for the user, have them click the submit button, and have the generated profile returned to the user. The template assumes you are using <a href="http://flask.pocoo.org/">Flask</a> and the JavaScript is dependent on jQuery. <a href="http://getbootstrap.com/">Bootstrap</a> HTML classes are used to improve the <em>out-of-the-box</em> styling, though this is not necessary.</p>
 
 <p>The template will work without JavaScript (as it is currently set-up), however, the user will be redirected to a page that displays the JSON output of the classes. The code is meant to be added around your existing Flask app, and so feel free to change the routes as necessary.</p>
 
-<h3>Template Assumed Structure</h3>
-<div class="highlight"><pre><code class="language-" data-lang="">+- app.py
+<h3 id="template-assumed-structure">Template Assumed Structure</h3>
+<div class="highlighter-rouge"><pre class="highlight"><code>+- app.py
 +- templates/ 
 |  +- insights_form.html 
 +- static/ 
 |  +- js/ 
 |  |  +- main.js 
 +- ... 
-</code></pre></div>
-<h3>app.py</h3>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">os</span>
+</code></pre>
+</div>
+
+<h3 id="apppy">app.py</h3>
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">watson_developer_cloud</span> <span class="kn">import</span> <span class="n">PersonalityInsightsV3</span>
 <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">jsonify</span>
 <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">request</span>
@@ -111,9 +111,11 @@
     <span class="n">profile</span> <span class="o">=</span> <span class="p">{}</span> <span class="k">if</span> <span class="n">profile_text</span> <span class="o">==</span> <span class="s">""</span> <span class="k">else</span> <span class="n">personality_insights</span><span class="o">.</span><span class="n">profile</span><span class="p">(</span><span class="n">profile_text</span><span class="p">,</span> <span class="n">consumption_preferences</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">profile</span><span class="p">)</span>
-</code></pre></div>
-<h3>templates/insights_form.html</h3>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</code></pre>
+</div>
+
+<h3 id="templatesinsights_formhtml">templates/insights_form.html</h3>
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;head&gt;</span>
         <span class="nt">&lt;title&gt;</span>Personality Insights Form<span class="nt">&lt;/title&gt;</span>
@@ -121,7 +123,7 @@
         <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"</span> <span class="na">integrity=</span><span class="s">"sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"</span> <span class="na">crossorigin=</span><span class="s">"anonymous"</span><span class="nt">&gt;</span>        
     <span class="nt">&lt;/head&gt;</span>
     <span class="nt">&lt;body&gt;</span>
-
+        
         <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container mt-3"</span> <span class="na">id=</span><span class="s">"messages"</span><span class="nt">&gt;&lt;/div&gt;</span>
 
         <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container mt-5"</span><span class="nt">&gt;</span>
@@ -142,9 +144,11 @@
         <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"static/js/main.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
     <span class="nt">&lt;/body&gt;</span>
 <span class="nt">&lt;/html&gt;</span>
-</code></pre></div>
-<h1>static/js/main.js</h1>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="cm">/*
+</code></pre>
+</div>
+
+<h1 id="staticjsmainjs">static/js/main.js</h1>
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="cm">/*
     * generateProfile(profile): Defined to handle the output of the 
     *       personality profile from the PI Watson Service
 */</span>
@@ -169,12 +173,12 @@
                                                     <span class="o">+</span><span class="p">(</span><span class="nx">trait</span><span class="p">[</span><span class="s1">'percentile'</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="p">).</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="s1">'" aria-valuemin="0" aria-valuemax="100" /&gt;'</span><span class="p">);</span>
             <span class="nx">$bar</span><span class="p">.</span><span class="nx">html</span><span class="p">((</span><span class="nx">trait</span><span class="p">[</span><span class="s1">'percentile'</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="p">).</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="s2">"%"</span><span class="p">);</span>
             <span class="nx">$bar</span><span class="p">.</span><span class="nx">appendTo</span><span class="p">(</span><span class="nx">$progress_bar_container</span><span class="p">);</span>
-
+            
             <span class="nx">$col_6_1</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">$label</span><span class="p">);</span>
             <span class="nx">$col_6_2</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">$progress_bar_container</span><span class="p">);</span>
             <span class="nx">$row</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">$col_6_1</span><span class="p">);</span>
             <span class="nx">$row</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">$col_6_2</span><span class="p">);</span>
-
+            
             <span class="nx">$</span><span class="p">(</span><span class="s2">"#results"</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">$row</span><span class="p">);</span>
         <span class="p">});</span>
     <span class="p">}</span>
@@ -197,12 +201,12 @@
                                                     <span class="o">+</span><span class="p">(</span><span class="nx">trait</span><span class="p">[</span><span class="s1">'percentile'</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="p">).</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="s1">'" aria-valuemin="0" aria-valuemax="100" /&gt;'</span><span class="p">);</span>
             <span class="nx">$bar</span><span class="p">.</span><span class="nx">html</span><span class="p">((</span><span class="nx">trait</span><span class="p">[</span><span class="s1">'percentile'</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="p">).</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="s2">"%"</span><span class="p">);</span>
             <span class="nx">$bar</span><span class="p">.</span><span class="nx">appendTo</span><span class="p">(</span><span class="nx">$progress_bar_container</span><span class="p">);</span>
-
+            
             <span class="nx">$col_6_1</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">$label</span><span class="p">);</span>
             <span class="nx">$col_6_2</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">$progress_bar_container</span><span class="p">);</span>
             <span class="nx">$row</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">$col_6_1</span><span class="p">);</span>
             <span class="nx">$row</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">$col_6_2</span><span class="p">);</span>
-
+            
             <span class="nx">$</span><span class="p">(</span><span class="s2">"#results"</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">$row</span><span class="p">);</span>
         <span class="p">});</span>
     <span class="p">}</span>
@@ -225,12 +229,12 @@
                                                     <span class="o">+</span><span class="p">(</span><span class="nx">trait</span><span class="p">[</span><span class="s1">'percentile'</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="p">).</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="s1">'" aria-valuemin="0" aria-valuemax="100" /&gt;'</span><span class="p">);</span>
             <span class="nx">$bar</span><span class="p">.</span><span class="nx">html</span><span class="p">((</span><span class="nx">trait</span><span class="p">[</span><span class="s1">'percentile'</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="p">).</span><span class="nx">toFixed</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="s2">"%"</span><span class="p">);</span>
             <span class="nx">$bar</span><span class="p">.</span><span class="nx">appendTo</span><span class="p">(</span><span class="nx">$progress_bar_container</span><span class="p">);</span>
-
+            
             <span class="nx">$col_6_1</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">$label</span><span class="p">);</span>
             <span class="nx">$col_6_2</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">$progress_bar_container</span><span class="p">);</span>
             <span class="nx">$row</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">$col_6_1</span><span class="p">);</span>
             <span class="nx">$row</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">$col_6_2</span><span class="p">);</span>
-
+            
             <span class="nx">$</span><span class="p">(</span><span class="s2">"#results"</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">$row</span><span class="p">);</span>
         <span class="p">});</span>
     <span class="p">}</span>
@@ -256,7 +260,7 @@
 
                 <span class="nx">$pref_list</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">$li</span><span class="p">);</span>
             <span class="p">});</span>
-
+            
             <span class="nx">$</span><span class="p">(</span><span class="s2">"#results"</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">$pref_list</span><span class="p">);</span>
         <span class="p">});</span>
     <span class="p">}</span>
@@ -304,7 +308,9 @@
 <span class="p">});</span>
 
 
-</code></pre></div>
+</code></pre>
+</div>
+
   </div>
 
 </article>
