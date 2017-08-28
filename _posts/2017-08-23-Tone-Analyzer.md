@@ -17,7 +17,7 @@ This template also makes use of [Google Charts](https://developers.google.com/ch
 The template will work without JavaScript (as it is currently set-up), however, the user will be redirected to a page that displays the JSON output of the classes. The code is meant to be added around your existing Flask app, and so feel free to change the routes as necessary.
 
 ### Template Assumed Structure
-```
+~~~
 +- app.py
 +- templates/ 
 |  +- tone_analyzer_form.html 
@@ -25,10 +25,10 @@ The template will work without JavaScript (as it is currently set-up), however, 
 |  +- js/ 
 |  |  +- main.js 
 +- ... 
-```
+~~~
 
 ### app.py
-```python
+~~~python
 from flask import Flask
 from flask import render_template
 from flask import request
@@ -53,10 +53,10 @@ def handle_tone_analyzer():
 
     return jsonify(tones)
 
-```
+~~~
 
 ### templates/tone\_analyzer\_form.html
-```html
+~~~html
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -98,10 +98,10 @@ def handle_tone_analyzer():
         <script src="static/js/main.js"></script>
     </body>
 </html>
-```
+~~~
 
 # static/js/main.js
-```javascript
+~~~javascript
 $(document).ready(function(){
     // Load in the Google Charts packages
     google.charts.load('current', {packages: ['corechart', 'bar', 'treemap']});    
@@ -191,4 +191,4 @@ $(".ajax_form").on("submit", function(){
     // Prevent Form Submission
     return false;
 });
-```
+~~~

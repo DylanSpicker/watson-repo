@@ -17,4 +17,4 @@ url: "http://dylanspicker.github.io/watson-repo" # the base hostname & protocol 
 github_username:  DylanSpicker
 
 # Build settings
-markdown: Redcarpet
+markdown: kramdown

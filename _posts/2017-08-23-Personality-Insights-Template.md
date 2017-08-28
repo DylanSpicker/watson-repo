@@ -15,7 +15,7 @@ This template will allow you to provide an input field for the user, have them c
 The template will work without JavaScript (as it is currently set-up), however, the user will be redirected to a page that displays the JSON output of the classes. The code is meant to be added around your existing Flask app, and so feel free to change the routes as necessary.
 
 ### Template Assumed Structure
-```
+~~~
 +- app.py
 +- templates/ 
 |  +- insights_form.html 
@@ -23,10 +23,10 @@ The template will work without JavaScript (as it is currently set-up), however, 
 |  +- js/ 
 |  |  +- main.js 
 +- ... 
-```
+~~~
 
 ### app.py
-```python
+~~~python
 import os
 from watson_developer_cloud import PersonalityInsightsV3
 from flask import jsonify
@@ -55,10 +55,10 @@ def analyze_personality():
     profile = {} if profile_text == "" else personality_insights.profile(profile_text, consumption_preferences=True)
 
     return jsonify(profile)
-```
+~~~
 
 ### templates/insights_form.html
-```html
+~~~html
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -88,10 +88,10 @@ def analyze_personality():
         <script src="static/js/main.js"></script>
     </body>
 </html>
-```
+~~~
 
 # static/js/main.js
-```javascript
+~~~javascript
 /*
     * generateProfile(profile): Defined to handle the output of the 
     *       personality profile from the PI Watson Service
@@ -252,4 +252,4 @@ $(".ajax_form").on("submit", function(){
 });
 
 
-```
+~~~

@@ -16,7 +16,7 @@ This template will allow you to provide an input field for the user, have them c
 The template will work without JavaScript (as it is currently set-up), however, the user will be redirected to a page that displays the JSON output of the classes. The code is meant to be added around your existing Flask app, and so feel free to change the routes as necessary.
 
 ### Template Assumed Structure
-```
+~~~
 +- app.py
 +- templates/ 
 |  +- classify_form.html 
@@ -24,10 +24,10 @@ The template will work without JavaScript (as it is currently set-up), however, 
 |  +- js/ 
 |  |  +- main.js 
 +- ... 
-```
+~~~
 
 ### app.py
-```python
+~~~python
 import os
 from watson_developer_cloud import NaturalLanguageClassifierV1
 from flask import jsonify
@@ -57,10 +57,10 @@ def handle_classification():
     classes = {} if comment_text == "" else natural_language_classifier.classify(classifier_id, comment_text)
 
     return jsonify(classes)
-```
+~~~
 
 ### templates/classify_form.html
-```html
+~~~html
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -90,10 +90,10 @@ def handle_classification():
         <script src="static/js/main.js"></script>
     </body>
 </html>
-```
+~~~
 
 # static/js/main.js
-```javascript
+~~~javascript
 /* 
     * parseClasses(classes): Defined to handle what happens with
     *       the classes object which is returned from Watson
@@ -159,4 +159,4 @@ $(".ajax_form").on("submit", function(){
     // Prevent Form Submission
     return false;
 });
-```
+~~~
