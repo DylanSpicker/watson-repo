@@ -18,6 +18,8 @@ $RECYCLE.BIN/
 *.lnk
 
 # _site
+_site/*
+.sass-cache/*
 
 # =========================
 # Operating System Files
