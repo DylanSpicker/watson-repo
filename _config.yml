@@ -13,7 +13,7 @@ description: > # this means to ignore newlines until "baseurl:"
   for working with IBM Watson on Bluemix. Designed specifically for use at
   the Smith School of Business.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://dylanspicker.github.io/watson-repo" # the base hostname & protocol for your site
+url: "https://dylanspicker.github.io/watson-repo" # the base hostname & protocol for your site
 github_username:  DylanSpicker
 
 # Build settings
