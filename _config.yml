@@ -18,3 +18,10 @@ github_username:  DylanSpicker
 
 # Build settings
 markdown: kramdown
+
+# Collections
+collections:
+  templates:
+    output: true
+  examples:
+    output: false

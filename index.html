@@ -1,19 +1,60 @@
 ---
 layout: default
 ---
-
-<div class="home">
-
-  <h1 class="page-heading">Templates</h1>
-
-  <ul class="post-list">
-    {% for post in site.posts %}
-      <li>
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h2>
-      </li>
-    {% endfor %}
-  </ul>
-
+<div class="row align-items-center mt-5 mb-5">
+  <div class="col-md-6">
+      <h1 class="display-3">Watson Repository</h1>
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis, doloremque iste dignissimos in voluptatibus minima earum ullam dolor fuga omnis aperiam fugit molestias, voluptatum adipisci voluptates? Illo nisi voluptatum ipsum.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis, doloremque iste dignissimos in voluptatibus minima earum ullam dolor fuga omnis aperiam fugit molestias, voluptatum adipisci voluptates? Illo nisi voluptatum ipsum.
+      </p>
+      <a href="#templates" class="btn btn-outline-primary">View Templates</a>
+      <a href="#samples" class="btn btn-outline-secondary">View Sample Apps</a>
+  </div>
+  <div class="col-md-6">
+    <div class="embed-responsive embed-responsive-16by9">
+        <iframe src="https://www.youtube.com/embed/_Xcmh1LQB9I" frameborder="0" allowfullscreen></iframe>
+    </div>          
+  </div>
 </div>
+
+<h1 id="templates" class="display-4 mt-5 mb-4">Watson Code Templates</h1>
+<div class="row">
+    {% for template in site.templates %}
+      <div class='col-9 col-md-6 mt-2 mb-2'>
+        <div class="card">
+            <img class="card-img-top template-card-img-top" src="{{template.img}}" alt="Card image cap">
+            <div class="card-body">
+              <h4 class="card-title">{{ template.title }}</h4>
+              <p class="card-text">
+                {{template.description}}
+              </p>
+              <a href="{{ template.url }}" class="btn btn-primary">View Template</a>
+            </div>
+          </div>
+      </div>
+    {% endfor %}
+</div>
+
+<h1 id="samples" class="display-4 mt-5 mb-4">Watson Code Samples</h1>
+<div class="row justify-content-center">
+  {% for sample in site.examples %}
+  <div class='col-9 col-md-7 mt-2 mb-2'>
+      <div class="card">
+          <img class="card-img-top" src="{{sample.img}}" alt="Card image cap">
+          <div class="card-body">
+            <h4 class="card-title">{{ sample.title }}</h4>
+            <p class="card-text">
+              {{sample.description}}
+            </p>
+            <a href="{{ sample.app_url }}" class="btn btn-primary">View App</a>
+            <a href="{{ sample.github_url }}" class="btn btn-secondary">View on GitHub</a>
+          </div>
+        </div>
+    </div>   
+  {% endfor %}
+</div>
+
+<h1 id="tools" class="display-4 mt-5 mb-4">Helpful Tools</h1>
