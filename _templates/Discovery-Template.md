@@ -2,6 +2,8 @@
 layout: post
 title:  "Discovery - Template"
 img: "imgs/svg/Discovery.svg"
+description: "The discovery service provides a rich corpus annotation and natural language search. It ingests text documents, applies a NLP model (pre-trained or custom) and then allows for queries to be made of the corpus in a natural language tone."
+bm_url: "https://console.bluemix.net/catalog/services/discovery"
 ---
 # Natural Language Classifier
 The [natural language classifier](https://console.bluemix.net/docs/services/natural-language-classifier/getting-started.html) (NLC) is a Watson Service that is used to classify snippets of text based on classes that you define. In order to use the classifier you must:

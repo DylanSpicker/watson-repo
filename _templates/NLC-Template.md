@@ -2,6 +2,8 @@
 layout: post
 title:  "Natural Language Classifier - Template"
 img: "imgs/svg/NaturalLanguageClassifier.svg"
+description: "The natural language classifier provides an easy-to-use interface to facilitate the classification of unstructured text. A custom classifier is trained on examples, and then using Watson's NLP, out-of-sample snippets of text can be sorted into their respective classes."
+bm_url: "https://console.bluemix.net/catalog/services/natural-language-classifier"
 ---
 # Natural Language Classifier
 The [natural language classifier](https://console.bluemix.net/docs/services/natural-language-classifier/getting-started.html) (NLC) is a Watson Service that is used to classify snippets of text based on classes that you define. In order to use the classifier you must:

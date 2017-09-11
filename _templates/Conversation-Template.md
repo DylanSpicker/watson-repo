@@ -2,6 +2,8 @@
 layout: post
 title:  "Conversation - Template"
 img: "imgs/svg/Conversation.svg"
+description: "The conversation service is a service which leverages Watson's NLP abilities to assist in the development and deployment of chatbots. It has an easy-to-use web interface which allows for the creation of conversations, all powered by Watson."
+bm_url: "https://console.bluemix.net/catalog/services/conversation"
 ---
 # Natural Language Classifier
 The [natural language classifier](https://console.bluemix.net/docs/services/natural-language-classifier/getting-started.html) (NLC) is a Watson Service that is used to classify snippets of text based on classes that you define. In order to use the classifier you must:

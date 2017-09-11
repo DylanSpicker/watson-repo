@@ -31,14 +31,16 @@ layout: default
               <p class="card-text">
                 {{template.description}}
               </p>
-              <a href="{{site.url}}{{ template.url }}" class="btn btn-primary">View Template</a>
+              <!-- TODO: Fix URL -->
+              <a href="{{ template.url }}" class="btn btn-primary">View Template</a>
+              <a href="{{ template.bm_url }}" class="btn btn-outline-secondary">View on Bluemix</a>
             </div>
           </div>
       </div>
     {% endfor %}
 </div>
 
-<h1 id="samples" class="display-4 mt-5 mb-4">Watson Code Samples</h1>
+<h1 id="samples" class="display-4 mt-5 mb-4">Watson Demo Applications</h1>
 <div class="row justify-content-center">
   {% for sample in site.examples %}
   <div class='col-9 col-md-7 mt-2 mb-2'>
@@ -49,8 +51,8 @@ layout: default
             <p class="card-text">
               {{sample.description}}
             </p>
-            <a href="{{ sample.app_url }}" class="btn btn-primary">View App</a>
-            <a href="{{ sample.github_url }}" class="btn btn-secondary">View on GitHub</a>
+            <a href="{{ sample.github_url }}" class="btn btn-primary">View on GitHub</a>
+            <a href="{{ sample.app_url }}" class="btn btn-outline-secondary">View App</a>
           </div>
         </div>
     </div>   

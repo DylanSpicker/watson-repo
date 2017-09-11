@@ -2,6 +2,8 @@
 layout: post
 title:  "Personality Insights - Template"
 img: "imgs/svg/PersonalityInsights.svg"
+description: "The personality insights service allows for a personality assessment to be conducted based on an individuals writing sample. Watson processes the sample and returns details related to the Big 5 personality traits, needs, values, and consumption preferences."
+bm_url: "https://console.bluemix.net/catalog/services/personality-insights"
 ---
 # Natural Language Classifier
 The [Personality Insights](https://console.bluemix.net/docs/services/personality-insights/getting-started.html) is a Watson Service that is used to generate a personality profile, including the Big 5 description, needs, values, and consumer preferences. In order to use the classifier you must:

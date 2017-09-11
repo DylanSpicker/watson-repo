@@ -2,6 +2,8 @@
 layout: post
 title:  "Tone Analyzer - Template"
 img: "imgs/svg/ToneAnalyzer.svg"
+description: "The tone analyzer service takes in a sample of writing and conducts an assessment of the emotional, social, and linguistic tones contained within. In addition, the NLP abilities can be applied to determine specific tones or emotions which are present."
+bm_url: "https://console.bluemix.net/catalog/services/tone-analyzer"
 ---
 # Tone Analyzer
 The [Tone Analyzer](https://console.bluemix.net/docs/services/tone-analyzer/getting-started.html) is a Watson Service that is used to gauge the emotional, social, and language tones found within a writing sample.
