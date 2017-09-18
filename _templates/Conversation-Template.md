@@ -5,7 +5,7 @@ img: "imgs/svg/Conversation.svg"
 description: "The conversation service is a service which leverages Watson's NLP abilities to assist in the development and deployment of chatbots. It has an easy-to-use web interface which allows for the creation of conversations, all powered by Watson."
 bm_url: "https://console.bluemix.net/catalog/services/conversation"
 ---
-# Natural Language Classifier
+# Conversation
 The [conversation](https://console.bluemix.net/docs/services/conversation/getting-started.html) service is a service which leverages Watson's NLP abilities to assist in the development and deployment of chatbots. It has an easy-to-use web interface which allows for the creation of conversations, all powered by Watson.
 
 1. Generate Credentials on Bluemix
