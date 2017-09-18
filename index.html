@@ -32,7 +32,7 @@ layout: default
                 {{template.description}}
               </p>
               <!-- TODO: Fix URL -->
-              <a href="{{ template.url }}" class="btn btn-primary">View Template</a>
+              <a href="{{site.url}}{{ template.url }}" class="btn btn-primary">View Template</a>
               <a href="{{ template.bm_url }}" class="btn btn-outline-secondary">View on Bluemix</a>
             </div>
           </div>
@@ -60,3 +60,8 @@ layout: default
 </div>
 
 <h1 id="tools" class="display-4 mt-5 mb-4">Helpful Tools</h1>
+<ul class="list-group mb-5">
+  <a href="https://pypi.python.org/pypi/wikipedia/" target="_BLANK" class="list-group-item list-group-item-action">Python Wikipedia API (for scraping Wikipedia data)</a>
+  <a href="https://pypi.python.org/pypi/amazon_scraper/0.2" target="_BLANK" class="list-group-item list-group-item-action">Python Amazon API (for scraping Amazon data - a continuous battle, so may or may not work at the time of use)</a>
+  <a href="http://docs.python-guide.org/en/latest/scenarios/scrape/" target="_BLANK" class="list-group-item list-group-item-action">Python Web Scraping (A General Tutorial)</a>
+</ul>

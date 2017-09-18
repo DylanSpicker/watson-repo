@@ -6,13 +6,13 @@ description: "The conversation service is a service which leverages Watson's NLP
 bm_url: "https://console.bluemix.net/catalog/services/conversation"
 ---
 # Natural Language Classifier
-The [natural language classifier](https://console.bluemix.net/docs/services/natural-language-classifier/getting-started.html) (NLC) is a Watson Service that is used to classify snippets of text based on classes that you define. In order to use the classifier you must:
+The [conversation](https://console.bluemix.net/docs/services/conversation/getting-started.html) service is a service which leverages Watson's NLP abilities to assist in the development and deployment of chatbots. It has an easy-to-use web interface which allows for the creation of conversations, all powered by Watson.
 
 1. Generate Credentials on Bluemix
-2. Create and Train a Classifier (there is a web-based tool for this)
+2. Create a Conversation Workspace (there is a web-based tool for this)
 
 ## The Template
-This template will allow you to provide an input field for the user, have them click the submit button, and have the predicted classes (along with their confidence scores) returned to the user. The template assumes you are using [Flask](http://flask.pocoo.org/) and the JavaScript is dependent on jQuery. [Bootstrap](http://getbootstrap.com/) HTML classes are used to improve the *out-of-the-box* styling, though this is not necessary.
+This template will allow you to provide an input field for the user, have them click the submit button, and have the messages sent. Watson then returns its follow-on message, which is also showed to the user. The template assumes you are using [Flask](http://flask.pocoo.org/) and the JavaScript is dependent on jQuery. [Bootstrap](http://getbootstrap.com/) HTML classes are used to improve the *out-of-the-box* styling, though this is not necessary.
 
 The template will work without JavaScript (as it is currently set-up), however, the user will be redirected to a page that displays the JSON output of the classes. The code is meant to be added around your existing Flask app, and so feel free to change the routes as necessary.
 
@@ -24,40 +24,52 @@ The template will work without JavaScript (as it is currently set-up), however, 
 +- static/ 
 |  +- js/ 
 |  |  +- main.js 
+|  +- css/
+|  |  +- main.css
 +- ... 
 ~~~
 
 ### app.py
 ~~~python
 import os
-from watson_developer_cloud import NaturalLanguageClassifierV1
-from flask import jsonify
-from flask import request
-from flask import render_template
+from watson_developer_cloud import ConversationV1
+from flask import Flask, jsonify, request, render_template
 
 # ... 
 
-natural_language_classifier = NaturalLanguageClassifierV1(
-  username='<NLC_Username>',
-  password='<NLC_Password>')
-classifier_id = '<Classifier_ID>'
+conversation = ConversationV1(
+  username='<Your_Username_Here>',
+  password='<Your_Password_Here>',
+  version='2017-05-26')
+
+# Workspace ID
+# Workspace ID from conversation.list_workspaces() method
+workspace_id = '<Your_Workspace_ID>' # Replace with your WID
+
+# Set a global ``context'' variable for use in Conversation
+global context
+context = {}
 
 # ...
 
-@app.route('/classify', methods=['GET','POST'])
-def handle_classification():
+@app.route('/conversation', methods=['GET','POST'])
+def manage_conversation():
+    # Specify to use the global context variable
+    global context
+
+    # Load Standard Module
     if request.method == 'GET':
-        # Return the HTML Form
-        return render_template('classify_form.html')
+        return render_template('conversation.html')
     
-    # Set the comment_text to the comment_text form variable 
-    # if it exists
-    comment_text = "" if "comment_text" not in request.form.keys() else request.form['comment_text']
+    # Validate that Message Was Submitted
+    if "message" not in request.form or len(request.form["message"]) <= 0:
+        return jsonify({'message': 'No message was provided.'}), 400
 
-    # Call the classify method if comment_text is not blank
-    classes = {} if comment_text == "" else natural_language_classifier.classify(classifier_id, comment_text)
+    # Get the response and update the context
+    message_response = conversation.message(workspace_id = workspace_id, message_input = {'text': request.form['message']}, context=context)
+    context = message_response["context"]
 
-    return jsonify(classes)
+    return jsonify(message_response)
 ~~~
 
 ### templates/classify_form.html
@@ -68,19 +80,23 @@ def handle_classification():
         <title>Natural Language Classifier Form</title>
         <!-- Include Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">        
+        <link rel="stylesheet" href="static/css/main.css">
     </head>
     <body>
         
-        <div class="container mt-3" id="messages"></div>
+        <div class="container mt-3" id="messages">
+            <div id="messages-content">
+                <p class="remove text-muted text-center">Enter a message to begin chatting with Watson...</p>
+            </div>
+        </div>
 
-        <div class="container mt-5">
-            <form data-id="nlc" class="ajax_form" action="classify" method="POST">
+        <div class="container mt-0 p-0">
+            <form data-id="conversation" class="ajax_form" action="conversation" method="POST">
                 <div class="form-group mb-0">
-                    <textarea name="comment_text" class="form-control" placeholder="Comment to Analyze..."></textarea>
+                    <textarea name="message" class="form-control" placeholder="Message for Watson..."></textarea>
                 </div>
-                <input type="submit" value="Analyze!" class="btn btn-block btn-primary">
+                <input type="submit" value="Send!" class="btn btn-block btn-primary">
             </form>
-            <ul id="results_list" class="mt-3 list-group"></ul>
         </div>
 
         <!-- Bootstrap and jQuery JavaScript Files -->
@@ -93,31 +109,48 @@ def handle_classification():
 </html>
 ~~~
 
+# static/css/main.css
+~~~css
+#messages {
+    height: 75vh;
+    background: #e4e6e8;
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+#messages-content {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+~~~
+
 # static/js/main.js
 ~~~javascript
 /* 
-    * parseClasses(classes): Defined to handle what happens with
-    *       the classes object which is returned from Watson
+    * parseMessage(message): Defined to handle what happens with
+    *       the messages object which is returned from Watson Conversation
 */
-function parseClasses(classes) {
-    if (! "classes" in classes || classes['classes'].length <= 0) {
-        // Return an Error Since the Classes Object is not well-formed
+function parseMessage(message) {
+    if (! "output" in message || message['output']['text'].length <= 0) {
+        // Return an Error Since the Messages Object is not well-formed
         $error_alert = $('<div class="alert alert-danger alert-dismissable fade show" role="alert" />');
         $error_alert.append('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>');
-        $error_alert.append('The comment is being analyzed!');
+        $error_alert.append('Watson Conversation is Experiencing an Issue Currently...');
 
-        $("#messages").append($error_alert);
+        $("#messages").prepend($error_alert);
         return false;
     }
-    // Clear any previous results
-    $("#results_list").html("");
 
-    // Add the list items
-    classes['classes'].forEach(function(element) {
-        $li = $("<li class='list-group-item list-group-item-action'></li>");
-        $li.html(element['class_name'] + " (" + (parseFloat(element['confidence'])*100).toFixed(2) + "%)");
-        $("#results_list").append($li);
-    });
+    // Clear any previous results
+    $(".remove").remove();
+
+    // Add the message
+    $message = $('<div class="alert alert-dark col-md-7" />');
+    $message.append("<strong>Watson: </strong>");
+    $message.append(message['output']['text']);
+
+    $("#messages-content").append($message);
 }
 
 /* 
@@ -140,19 +173,20 @@ $(".ajax_form").on("submit", function(){
         method: method,
         data: data,
         beforeSend: function() {
-            if (form_id === "nlc") {
-                // Add a message that the form is being submitted
-                $submission_alert = $('<div class="alert alert-info alert-dismissable fade show" role="alert" />');
-                $submission_alert.append('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>');
-                $submission_alert.append('The comment is being analyzed!');
-
-                $("#messages").append($submission_alert);
+            if (form_id === 'conversation') {
+                // Add the submitted message to the conversation, after ensuring that "remove" are removed
+                $(".remove").remove();
+                $message = $('<div class="alert alert-primary col-md-7 ml-auto" />');
+                $message.append("<strong>You: </strong>");
+                $message.append($("textarea[name='message']").val());
+                $("textarea[name='message']").val("");
+                $("#messages-content").append($message);
             }
         },
         success: function(response) {
-            if (form_id === "nlc") {
-                // Call the parseClasses on the response
-                parseClasses(response);
+            if (form_id === "conversation") {
+                // Call the parseMessage on the response
+                parseMessage(response);
             }
         }
     });
@@ -160,4 +194,6 @@ $(".ajax_form").on("submit", function(){
     // Prevent Form Submission
     return false;
 });
+
+
 ~~~
